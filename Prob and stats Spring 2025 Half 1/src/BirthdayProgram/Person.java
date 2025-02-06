@@ -11,7 +11,7 @@ public class Person {
 	 * @param rand A random number generator
 	 */
 	public Person() {
-		birthday = rand.nextInt(356);
+		birthday = rand.nextInt(365);
 	}
 	
 	/**
