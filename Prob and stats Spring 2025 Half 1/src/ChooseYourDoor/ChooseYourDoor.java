@@ -6,28 +6,36 @@ public class ChooseYourDoor {
 	
 	static Random rand = new Random();
 	
-	public static int startSimulation(boolean changeDoorPick, int trials) {
+	public static int startSimulation(boolean changeDoorPick, int trials, int totalDoors) {
 		int wins = 0;
 		for (int i = 0; i<trials; i++) {
-			wins += runInstance(changeDoorPick);	//add 1 if the door is found, 0 if not
+			wins += runInstance(changeDoorPick, totalDoors);	//add 1 if the door is found, 0 if not
 		}
 		return wins;
 	}
 	
-	public static int runInstance(boolean changeDoorPick) {
+	public static int runInstance(boolean changeDoorPick, int totalDoors) {
 		//setup the doors and initial pick
-		Door[] doors = {new Door("Bad"), new Door("Bad"), new Door("Bad")};
-		int winLocation = rand.nextInt(3);
-		int doorToPick = rand.nextInt(3);
-		int doorToReveal = rand.nextInt(3);
+		Door[] doors = new Door[totalDoors];
+		int initialPick;
+		for (int i = 0; i < totalDoors; i++) {
+			doors[i] = new Door("Bad");
+		}
+		int winLocation = rand.nextInt(totalDoors);
+		int doorToPick = rand.nextInt(totalDoors);
+		int doorToReveal = rand.nextInt(totalDoors);
 		doors[winLocation] = new Door("Good");
 	
 		while (doorToReveal == winLocation || doorToReveal == doorToPick) {	//set the door to reveal to the last door
-			doorToReveal = rand.nextInt(3);
+			doorToReveal = rand.nextInt(totalDoors);
 		}
 		
+		initialPick = doorToPick;
+		
 		if (changeDoorPick) {
-			doorToPick = 3-(doorToPick+doorToReveal);
+			while (doorToPick == doorToReveal || doorToPick == initialPick) {
+				doorToPick = rand.nextInt(totalDoors);
+			}
 		}
 		
 		return doors[doorToPick].getPrimitiveType();
@@ -42,4 +50,6 @@ public class ChooseYourDoor {
  * 	iii. 66%
  * 	iv. 66%
  * 	v. switch which curtain
+ * 
+ * Extra Credit: Modeled deal or no deal by allowing for a variable number of "doors"
  */

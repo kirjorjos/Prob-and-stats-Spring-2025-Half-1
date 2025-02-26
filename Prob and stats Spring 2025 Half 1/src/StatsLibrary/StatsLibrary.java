@@ -10,7 +10,7 @@ public class StatsLibrary {
 	 * @param input The list to find the median of
 	 * @return The median of the list
 	 */
-	public static double getMean(double[] input) {
+	public static double findMean(double[] input) {
 		double sum = 0;
 		for (int i = 0; i < input.length; i++) {
 			sum+=input[i];
@@ -29,7 +29,7 @@ public class StatsLibrary {
 			double[] temp = new double[1];
 			temp[0] = input[input.length/2];
 			temp[1] = input[1+(input.length/2)];
-			return getMean(temp);
+			return findMean(temp);
 		} else {
 			return input[input.length/2];
 		}
@@ -112,5 +112,79 @@ public class StatsLibrary {
 	 */
 	public static BigInteger combination(int r, int n) {
 		return permutation(r, n).divide(factorial(r));
+	}
+	
+	/**
+	 * A method to find the dependent P(A∩B)
+	 * @param a A
+	 * @param b B
+	 * @param probabilityOfAGivenB P(A|B)
+	 * @return P(A∩B)
+	 */
+	public static double probabilityOfAIntersectB(double a, double b, double probabilityOfAGivenB) {
+		return b*probabilityOfAGivenB;
+	}
+	
+	/**
+	 * A method to find the independent P(A∩B)
+	 * @param a A
+	 * @param b B
+	 * @return P(A∩B)
+	 */
+	public static double probabilityOfAIntersectB(double a, double b) {
+		return a*b;
+	}
+	
+	/**
+	 * A method to find P(A|B)
+	 * @param a A
+	 * @param b B
+	 * @param probabilityOfAIntersectB P(A∩B)
+	 * @return P(A|B)
+	 */
+	public static double probabilityOfAGivenB(double a, double b, double probabilityOfAIntersectB) {
+		return probabilityOfAIntersectB/b;
+	}
+	
+	/**
+	 * A method to find dependent P(A∪B)
+	 * @param a A
+	 * @param b B
+	 * @return P(A∪B)
+	 */
+	public static double probabilityOfAUnionB(double a, double b) {
+		return a+b;
+	}
+	
+	/**
+	 * A method to find dependent P(A∪B)
+	 * @param a
+	 * @param b
+	 * @return P(A∪B)
+	 */
+	public static double probabilityOfAUnionB(double a, double b, double probabilityOfAGivenB) {
+		return a+b-probabilityOfAIntersectB(a, b, probabilityOfAGivenB);
+	}
+	
+	/**
+	 * Bayes Theorem to get P(B|A)
+	 * @param a A
+	 * @param b B
+	 * @param probabilityOfAIntersectB P(A|B)
+	 * @return P(B|A)
+	 */
+	public static double probabilityOfBGivenA(double b, double a, double probabilityOfAIntersectB) {
+		return (probabilityOfAGivenB(a, b, probabilityOfAIntersectB)*b)/a;
+	}
+	
+	/**
+	 * Binomial Distribution
+	 * @param x The target number of successes
+	 * @param p Probability of success
+	 * @param n The number of trials
+	 * @return
+	 */
+	public double binomialDistribution(int x, double p, int n) {
+		return combination(n, x).doubleValue()*Math.pow(p, x)*Math.pow(1-p, n-x);
 	}
 }
