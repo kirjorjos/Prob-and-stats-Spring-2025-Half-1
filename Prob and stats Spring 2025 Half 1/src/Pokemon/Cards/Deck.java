@@ -9,11 +9,20 @@ public class Deck {
 	private Stack<Card> deck;
 	private Random rand;
 
+	/**
+	 * A new deck
+	 * @param deck The list of cards in the deck
+	 */
 	private Deck(Stack<Card> deck) {
 		this.deck = deck;
 		rand = new Random();
 	}
 	
+	/**
+	 * Construct a list of cards based on a user-inputed list; eg. ["Pikachu", 3, "SomeOtherCardType", 7]
+	 * @param userInput The user-inputed list
+	 * @return The list of cards
+	 */
 	@SuppressWarnings("unchecked")	//some things are checked but IDE won't see it
 	public static Deck generateDeck(Object ...userInput) {
 		Stack<Card> deck = new Stack<Card>();
@@ -53,6 +62,9 @@ public class Deck {
 		return new Deck(deck);
 	}
 	
+	/**
+	 * Shuffle the deck
+	 */
 	public void shuffle() {
 		ArrayList<Card> tempDeck = new ArrayList<Card>(deck);
 		while (!deck.isEmpty()) {
@@ -65,6 +77,10 @@ public class Deck {
 		}
 	}
 	
+	/**
+	 * Shuffle the cards into the deck
+	 * @param cards The cards to shuffle into the deck
+	 */
 	public void shuffleIntoDeck(ArrayList<Card> cards) {
 		for (Card card : cards) {
 			deck.add(card);
@@ -73,6 +89,11 @@ public class Deck {
 		shuffle();
 	}
 	
+	/**
+	 * Draw some cards from the top of the deck
+	 * @param cards How many cards to draw
+	 * @return A list of the cards
+	 */
 	public ArrayList<Card> draw(int cards) {
 		ArrayList<Card> temp = new ArrayList<Card>();
 		for (int i = 0; i < cards; i++) {

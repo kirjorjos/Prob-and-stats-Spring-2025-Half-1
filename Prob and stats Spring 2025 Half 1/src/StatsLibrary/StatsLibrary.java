@@ -26,9 +26,9 @@ public class StatsLibrary {
 	public static double findMedian(double[] input) {
 		Arrays.sort(input);
 		if (input.length % 2 == 0) {
-			double[] temp = new double[1];
-			temp[0] = input[input.length/2];
-			temp[1] = input[1+(input.length/2)];
+			double[] temp = new double[2];
+			temp[0] = input[input.length/2-1];
+			temp[1] = input[(input.length/2)];
 			return findMean(temp);
 		} else {
 			return input[input.length/2];
@@ -86,7 +86,8 @@ public class StatsLibrary {
 	 */
 	public static BigInteger factorial(int num) {
 		BigInteger product = new BigInteger("1");
-		for (Integer i = 0; i < num; i++) {
+		if (num == 0) return product;
+		for (Integer i = 1; i <= num; i++) {
 			product = product.multiply(new BigInteger(i.toString()));
 		}
 		return product;
@@ -182,9 +183,43 @@ public class StatsLibrary {
 	 * @param x The target number of successes
 	 * @param p Probability of success
 	 * @param n The number of trials
-	 * @return
+	 * @return The Binomial Distribution
 	 */
-	public double binomialDistribution(int x, double p, int n) {
+	public static double binomialDistribution(int x, double p, int n) {
 		return combination(n, x).doubleValue()*Math.pow(p, x)*Math.pow(1-p, n-x);
 	}
+	
+	/**
+	 * Geometric Distribution
+	 * @param x The trial number of the first success
+	 * @param p The probability of success in each trial
+	 * @return The Geometric Distribution
+	 */
+	public static double geometricDistribution(int x, double p) {
+	    return Math.pow(1-p, x-1)*p;
+	}
+
+	/**
+	 * Hypergeometric Distribution
+	 * @param N The total population size
+	 * @param K The number of success states in the population
+	 * @param n The number of draws
+	 * @param x The number of observed successes
+	 * @return The Hypergeometric Distribution
+	 */
+	public static double hypergeometricDistribution(int N, int K, int n, int x) {
+	    return combination(x, K).multiply(combination(n-x, N-K)).doubleValue()/combination(n, N).doubleValue();
+	}
+
+	/**
+	 * Negative Binomial Distribution
+	 * @param x The total number of trials
+	 * @param r The number of required successes
+	 * @param p The probability of success in each trial
+	 * @return The Negative Binomial Distribution
+	 */
+	public static double negativeBinomialDistribution(int x, int r, double p) {
+	    return combination(r-1, x-1).doubleValue()*Math.pow(p, r)*Math.pow(1-p, x-r);
+	}
+
 }

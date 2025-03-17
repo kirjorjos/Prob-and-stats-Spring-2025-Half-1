@@ -2,8 +2,6 @@ package BirthdayProgram;
 
 import java.util.Random;
 
-// Gian is a person
-
 public class Person {
 	private Random rand = new Random();
 	private int birthday;

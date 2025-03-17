@@ -15,6 +15,11 @@ public class MulliganTester {
 		}
 	}
 
+	/**
+	 * Simulate drawing a hand and checking if it has a Pokemon or not
+	 * @param pokemonNumber The number of Pokemon to put in the deck
+	 * @return 1 if a Pokemon was found, 0 if not
+	 */
 	private static int runSimulation(int pokemonNumber) {
 		Player player = new Player("Player 1", Deck.generateDeck("Pikachu", pokemonNumber, "Fire Energy", 60-pokemonNumber), true);
 		if (player.drawHand() > 0) {

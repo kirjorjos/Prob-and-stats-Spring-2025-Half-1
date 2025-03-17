@@ -27,6 +27,11 @@ public class BirthdayProgram {
 		return classSize;
 	}
 
+	/**
+	 * Generate a class of people
+	 * @param classSize The size of the class
+	 * @return An ArrayList representing the class
+	 */
 	public static ArrayList<Person> generateClass(int classSize) {
 		ArrayList<Person> classList = new ArrayList<Person>();
 		for (int i = 0; i < classSize; i++) {
@@ -35,6 +40,12 @@ public class BirthdayProgram {
 		return classList;
 	}
 	
+	/**
+	 * Run as many instances as you say to
+	 * @param runCount The number of instances to run
+	 * @param classSize	The size of the class for each instance
+	 * @return The number of times that at least 2 students in a given class shared a birthday
+	 */
 	public static int run(int runCount, int classSize) {
 		int timesShared = 0;
 		for (int i = 0; i < runCount; i++) {
@@ -43,6 +54,11 @@ public class BirthdayProgram {
 		return timesShared;
 	}
 
+	/**
+	 * Simulate an instance of a class and check if 2 people share the same birthday
+	 * @param classSize The number of people in the class
+	 * @return	If 2 people share a birthday or not
+	 */
 	private static boolean runInstance(int classSize) {
 		int[] birthdays = new int[365];
 		ArrayList<Person> classList = BirthdayProgram.generateClass(classSize);

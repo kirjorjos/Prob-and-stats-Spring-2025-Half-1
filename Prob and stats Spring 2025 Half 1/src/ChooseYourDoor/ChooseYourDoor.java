@@ -6,6 +6,13 @@ public class ChooseYourDoor {
 	
 	static Random rand = new Random();
 	
+	/**
+	 * Start the simulation and run however many instances and see how many win
+	 * @param changeDoorPick If the door pick should be changed or not; true means it does change.
+	 * @param trials The number of instances to run
+	 * @param totalDoors The number of doors each instance should have
+	 * @return The number of instances that won
+	 */
 	public static int startSimulation(boolean changeDoorPick, int trials, int totalDoors) {
 		int wins = 0;
 		for (int i = 0; i<trials; i++) {
@@ -14,6 +21,12 @@ public class ChooseYourDoor {
 		return wins;
 	}
 	
+	/**
+	 * An instance of picking a door and potentially swapping it
+	 * @param changeDoorPick If the door pick should be swapped or not; true means it is swapped
+	 * @param totalDoors The number of doors to run the simulation with
+	 * @return 1 if the correct door was picked, 0 if not
+	 */
 	public static int runInstance(boolean changeDoorPick, int totalDoors) {
 		//setup the doors and initial pick
 		Door[] doors = new Door[totalDoors];

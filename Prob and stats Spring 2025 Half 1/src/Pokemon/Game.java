@@ -10,6 +10,10 @@ public class Game {
 	private boolean evenTurn;
 	private boolean isFirstTurn;
 	
+	/**
+	 * A new game
+	 * @param players The players in the game
+	 */
 	public Game(Player[] players) {
 		isRunning = true;
 		player1 = players[0];
@@ -19,6 +23,9 @@ public class Game {
 		setupGame();
 	}
 	
+	/**
+	 * Set up the game
+	 */
 	private void setupGame() {
 		int player2BonusCards = player1.drawHand();
 		int player1BonusCards = player2.drawHand();
@@ -30,6 +37,10 @@ public class Game {
 		player2.setOpponent(player1);
 	}
 
+	/**
+	 * Get the winner of the game
+	 * @return The winner
+	 */
 	public Player getWinner() {
 		Player temp1 = checkLifeWinner();
 		Player temp2 = checkPrizeWinner();
@@ -40,10 +51,18 @@ public class Game {
 		return null;
 	}
 
+	/**
+	 * If the game is running
+	 * @return If the game is running
+	 */
 	public boolean isRunning() {
 		return isRunning;
 	}
 	
+	/**
+	 * Check if there's a winner based on life
+	 * @return The winner if there is one, null if not
+	 */
 	private Player checkLifeWinner() {
 		if (player1.isAlive()) {
 			if (player2.isAlive()) {
@@ -55,6 +74,10 @@ public class Game {
 		return player2;
 	}
 	
+	/**
+	 * Check if there's a winner based on prize pool
+	 * @return The winner if there is one, null if not
+	 */
 	private Player checkPrizeWinner() {
 		if (player2.getPrizePool().length != 0) {
 			if (player2.getPrizePool().length != 0) {
@@ -66,6 +89,10 @@ public class Game {
 		return player2;
 	}
 	
+	/**
+	 * Check if there's a winner based on Pokemon count
+	 * @return The winner if there is one, null if not
+	 */
 	private Player checkPokemonCount() {
 		if (player2.getActivePokemon() == null && !player2.handContainsPokemon()) {
 			if (player2.getActivePokemon() != null && player2.handContainsPokemon()) {
@@ -77,6 +104,9 @@ public class Game {
 		return player2;
 	}
 
+	/**
+	 * The main update method
+	 */
 	public void update() {
 		if (evenTurn) {
 			player1.takeTurn(isFirstTurn);
