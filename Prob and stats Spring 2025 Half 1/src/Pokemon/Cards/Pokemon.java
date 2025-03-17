@@ -11,9 +11,13 @@ public class Pokemon extends Card {
 	private ArrayList<String> weaknessTypes;
 	private String type;
 	private ArrayList<Energy> energy;
+	private int stage;
+	private int maxHp;
+	private int turnsOnBench;
 	
-	public Pokemon(int hp, int attack, int defense, ArrayList<String> resistanceTypes, int resistance, ArrayList<String> weaknessTypes, String type) {
-		this.hp = hp;
+	public Pokemon(int maxHp, int attack, int defense, ArrayList<String> resistanceTypes, int resistance, ArrayList<String> weaknessTypes, String type, int stage) {
+		this.maxHp = maxHp;
+		this.hp = maxHp;
 		this.attack = attack;
 		this.defense = defense;
 		this.resistanceTypes = resistanceTypes;
@@ -21,6 +25,21 @@ public class Pokemon extends Card {
 		this.weaknessTypes = weaknessTypes;
 		this.type = type;
 		this.energy = new ArrayList<Energy>();
+		this.stage = stage;
+		turnsOnBench = 0;
+	}
+	
+	public Pokemon evolve(Pokemon evolution) {
+		if (turnsOnBench <= 0) return null;
+		for (Energy e : energy) {
+			evolution.attachEnergy(e);
+		}
+		evolution.setHp(evolution.getMaxHp()-(maxHp-hp));
+		return evolution;
+	}
+
+	private int getMaxHp() {
+		return maxHp;
 	}
 
 	public int getHp() {
@@ -92,5 +111,13 @@ public class Pokemon extends Card {
 
 	public void attachEnergy(Energy card) {
 		energy.add(card);
+	}
+
+	public int getStage() {
+		return stage;
+	}
+	
+	public void increaseBenchTurns() {
+		turnsOnBench++;
 	}
 }

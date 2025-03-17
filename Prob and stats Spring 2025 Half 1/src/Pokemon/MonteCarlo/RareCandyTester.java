@@ -1,12 +1,11 @@
 package Pokemon.MonteCarlo;
 
-import java.util.Stack;
+import java.util.Arrays;
 
 import Pokemon.Cards.Card;
-import Pokemon.Cards.Energy;
+import Pokemon.Cards.Deck;
 import Pokemon.Cards.Player;
-import Pokemon.Cards.RareCandy;
-import Pokemon.Cards.PokemonTypes.Charmander;
+import Pokemon.Cards.TrainerCards.RareCandy;
 
 public class RareCandyTester {
 	public static void main(String[] args) {
@@ -21,25 +20,17 @@ public class RareCandyTester {
 	}
 
 	private static int runSimulation(int rareCandy) {
-		Stack<Card> deck = new Stack<Card>();
-		Player player;
-		for (int i = 0; i < 4; i++) {
-			deck.add(new Charmander());
-		}
-		for (int i = 0; i < rareCandy; i++) {
-			deck.add(new RareCandy());
-		}
-		for (int i = 0; i < (56-rareCandy); i++) {
-			deck.add(new Energy("Fire"));
-		}
-		player = new Player("Player 1", deck);
+		int rareCandyCount = 0;
+		Player player = new Player("Player 1", Deck.generateDeck("Pikachu", 4, "RareCandy", rareCandy, "FireEnergy", 56-rareCandy), true);
 		player.drawHand();
 		player.drawPrizePool();
-		for (Card card : deck) {
+		for (Card card : player.getPrizePool()) {
 			if (card instanceof RareCandy) {
-				return 0;
+				rareCandyCount++;
+				if (rareCandyCount >= 4) System.out.println(card);
 			}
 		}
-		return 1;
+		if (rareCandyCount == rareCandy) return 1;
+		return 0;
 	}
 }

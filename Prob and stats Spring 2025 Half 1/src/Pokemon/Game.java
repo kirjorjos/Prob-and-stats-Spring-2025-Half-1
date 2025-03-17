@@ -34,7 +34,9 @@ public class Game {
 		Player temp1 = checkLifeWinner();
 		Player temp2 = checkPrizeWinner();
 		Player temp3 = checkPokemonCount();
-		if (temp1.equals(temp2) && temp1.equals(temp3)) return temp1;
+		if (temp1 != null) return temp1;
+		if (temp2 != null) return temp2;
+		if (temp3 != null) return temp3;
 		return null;
 	}
 
@@ -83,6 +85,9 @@ public class Game {
 		}
 		isFirstTurn = false;
 		evenTurn  = !evenTurn;
+		if (getWinner() != null) {
+			isRunning = false;
+		}
 	}
 
 }

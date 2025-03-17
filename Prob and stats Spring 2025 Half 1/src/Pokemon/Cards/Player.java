@@ -9,37 +9,23 @@ import Pokemon.Cards.PokemonTypes.Pikachu;
 public class Player {
 
 	private String name;
-	private Stack<Card> deck;
+	private Deck deck;
 	private static Random rand = new Random();
-	private ArrayList<Card> hand = new ArrayList<Card>();
+	private ArrayList<Card> hand;
 	private int hp;
 	private Pokemon activePokemon;
-	private Card[] prizes = new Card[6];
+	private ArrayList<Pokemon> bench;
+	private Card[] prizes;
 	private Player opponent;
+	private boolean automatic;
 
-	public Player(String name, Stack<Card> deck) {
+	public Player(String name, Deck deck, boolean automatic) {
 		this.name = name;
 		this.deck = deck;
-	}
-	
-	public static void shuffleDeck(Stack<Card> deck) {
-		ArrayList<Card> tempDeck = new ArrayList<Card>(deck);
-		while (!deck.isEmpty()) {
-			deck.pop();
-		}
-		while (!tempDeck.isEmpty()) {
-			Card card = tempDeck.get(rand.nextInt(tempDeck.size()));
-			deck.push(card);
-			tempDeck.remove(card);
-		}
-	}
-	
-	public void shuffleIntoDeck(ArrayList<Card> cards) {
-		for (Card card : cards) {
-			deck.add(card);
-		}
-		cards.clear();
-		shuffleDeck(deck);
+		this.automatic = automatic;
+		bench = new ArrayList<Pokemon>();
+		hand = new ArrayList<Card>();
+		prizes = new Card[6];
 	}
 
 	public boolean isAlive() {
@@ -50,16 +36,10 @@ public class Player {
 		int opponentCards = -1;
 		while (!handContainsPokemon()) {
 			opponentCards++;
-			shuffleIntoDeck(hand);
-			draw(7);
+			deck.shuffleIntoDeck(hand);
+			hand = deck.draw(7);
 		}
 		return opponentCards;
-	}
-
-	public void draw(int cards) {
-		for (int i = 0; i < cards; i++) {
-			if (!deck.empty()) hand.add(deck.pop());
-		}
 	}
 	
 	public boolean handContainsPokemon() {
@@ -76,9 +56,7 @@ public class Player {
 	}
 
 	public void drawPrizePool() {
-		for (int i = 0; i < 6; i++) {
-			prizes[i] = deck.pop();
-		}
+		prizes = (Card[]) deck.draw(6).toArray(new Card[6]);
 	}
 	
 	public Card[] getPrizePool() {
@@ -94,12 +72,15 @@ public class Player {
 	}
 
 	public void takeTurn(boolean isFirstTurn) {
-		draw(1);
+		deck.draw(1);
 		Pokemon pokemon = null;
-		findPokemon: for (Card card : hand) {
+		for (Pokemon p : bench) {
+			p.increaseBenchTurns();
+		}
+		for (Card card : hand) {
 			if (card instanceof Pokemon) {
 				pokemon = (Pokemon) card;
-				break findPokemon;
+				if (bench.size() <= 5 && pokemon.getStage() == 0) bench.add(pokemon);
 			}
 		}
 		playPokemon(pokemon);
@@ -108,6 +89,7 @@ public class Player {
 				activePokemon.attachEnergy((Energy) card);
 			}
 		}
+		
 		if (!isFirstTurn) {
 			attack();
 		}
@@ -131,15 +113,11 @@ public class Player {
 		return name;
 	}
 
-	public static Stack<Card> generateDeck(int pokemon, int energy) {
-		Stack<Card> deck = new Stack<Card>();
-		for (int i = 0; i < pokemon; i++) {
-			deck.add(new Pikachu());
-		}
-		for (int i = 0; i < (60-pokemon); i++) {
-			deck.add(new Energy("Fire"));
-		}
-		shuffleDeck(deck);
-		return deck;
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
+	
+	public void draw(int cards) {
+		hand.addAll(deck.draw(cards));
 	}
 }

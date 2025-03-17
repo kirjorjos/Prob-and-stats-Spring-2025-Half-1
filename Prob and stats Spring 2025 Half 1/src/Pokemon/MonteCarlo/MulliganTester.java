@@ -1,11 +1,7 @@
 package Pokemon.MonteCarlo;
 
-import java.util.Stack;
-
-import Pokemon.Cards.Card;
-import Pokemon.Cards.Energy;
+import Pokemon.Cards.Deck;
 import Pokemon.Cards.Player;
-import Pokemon.Cards.PokemonTypes.Pikachu;
 
 public class MulliganTester {
 	public static void main(String[] args) {
@@ -20,15 +16,7 @@ public class MulliganTester {
 	}
 
 	private static int runSimulation(int pokemonNumber) {
-		Stack<Card> deck = new Stack<Card>();
-		Player player;
-		for (int k = 0; k < pokemonNumber; k++) {
-			deck.add(new Pikachu());
-		}
-		for (int k = 0; k < (60-pokemonNumber); k++) {
-			deck.add(new Energy("Fire"));
-		}
-		player = new Player("Player 1", deck);
+		Player player = new Player("Player 1", Deck.generateDeck("Pikachu", pokemonNumber, "Fire Energy", 60-pokemonNumber), true);
 		if (player.drawHand() > 0) {
 			return 1;
 		} else {
