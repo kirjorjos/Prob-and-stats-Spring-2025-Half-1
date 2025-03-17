@@ -1,0 +1,207 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Formula Sheet}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definition 1.1}
+Mean of a sample with $n$ values:
+\[
+\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i
+\]
+
+\section{Definition 1.2}
+Variance of a sample: overall distance of values from the mean:
+\[
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2
+\]
+
+\section{Definition 1.3}
+Standard Deviation ($s$): square root of variance ($s^2$):
+\[
+s = \sqrt{s^2}
+\]
+
+\section{Theorem 2.5}
+Multiplicative Law of Probability: The probability of the intersection of two events:
+\begin{enumerate}
+  \item If dependent, $P(A \cap B) = P(A)P(B|A) = P(B)P(A|B)$.
+  \item If independent, $P(A \cap B) = P(A)P(B)$.
+\end{enumerate}
+
+Additive Law of Probability: The probability of the union of two events:
+\[
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+\]
+If $P(A \cap B) = 0$ (mutually exclusive events), then $P(A \cup B) = P(A) + P(B)$.
+
+
+\section{Definition 2.6}
+Probability of an event $A$ within a sample space $S$, such that $A \subseteq S$. The following are true:
+\begin{enumerate}
+  \item $P(A) \geq 0$
+  \item $P(S) = 1$
+  \item If $(A_1, A_2, \ldots, A_n)$ are mutually exclusive, then $P(A_1 \cup A_2 \cup \ldots \cup A_n) = \sum_{i=1}^n P(A_i)$.
+\end{enumerate}
+
+\section{Definition 2.7}
+Permutation: ordered arrangement of $r$ distinct objects, with $n$ possible orders:
+\[
+P_n^r = \frac{n!}{(n-r)!}
+\]
+
+\section{Theorem 2.7}
+If $A$ is an event, then $P(A) = 1 - P(\bar{A})$.
+
+
+\section{Definition 2.8}
+Combination: number of subsets of size $r$ that can be formed from $n$ objects:
+\[
+C_n^r = \frac{n!}{r!(n-r)!}
+\]
+
+\section{Theorem 2.8}
+Total probability: assume Definition 2.11. Then, for any event $A$:
+\[
+P(A) = \sum_{i=1}^k P(A|B_i)P(B_i)
+\]
+
+\section{Definition 2.9}
+Conditional probability: chance event $A$ has occurred, given event $B$ has occurred (where $P(B) > 0$):
+\[
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+\]
+
+\section{Definition 2.10}
+Independence: The following must be true for events $A$ and $B$ to be independent. Otherwise, they are dependent:
+\begin{enumerate}
+  \item $P(A|B) = P(A)$
+  \item $P(B|A) = P(B)$
+  \item $P(A \cap B) = P(A)P(B)$
+\end{enumerate}
+
+
+\section{Definition 2.11}
+Partition: for any positive integer $k$, $\{B_1, B_2, \ldots, B_k\}$ is a partition of sample space $S$ if:
+\begin{enumerate}
+  \item $S = B_1 \cup B_2 \cup \ldots \cup B_k$
+  \item $B_i \cap B_j = \emptyset$ for all $i \neq j$
+\end{enumerate}
+
+
+\section{Bayes' Theorem}
+For events $A$ and $B$ in space $S$ when $P(A) > 0$ and $P(B) > 0$:
+\[
+P(B|A) = \frac{P(A|B)P(B)}{P(A)}
+\]
+
+\section{Definition 3.3}
+Probability distribution for each value $y$ of random variable $Y$, given $0 \leq P(y) \leq 1$:
+\[
+p(y) = P(Y = y)
+\]
+
+\section{Definition 3.4}
+Expected value of discrete random variable $Y$:
+\[
+\mu = E(Y) = \sum_{y} y p(y)
+\]
+
+\section{Definition 3.5}
+Variance of discrete random variable $Y$:
+\[
+\sigma^2 = V(Y) = E(Y - \mu)^2
+\]
+Standard deviation of discrete random variable $Y$:
+\[
+\sigma = \sqrt{E(Y - \mu)^2}
+\]
+
+\section{Binomial Distribution}
+Probability Mass Function for binomial variable $y$ with $n$ trials, success probability $p$, and failure probability $q$:
+\[
+P(Y = y) = \binom{n}{y} p^y q^{n-y}
+\]
+
+\section{Theorem 3.7}
+Expected value of binomial random variable $Y$:
+\[
+\mu = E(Y) = np
+\]
+Variance of $Y$:
+\[
+\sigma^2 = V(Y) = npq
+\]
+Standard deviation of $Y$:
+\[
+\sigma = \sqrt{npq}
+\]
+
+\section{Definition 3.8}
+Geometric probability distribution mass function, with success probability $p$ and failure probability $q$:
+\[
+P(Y = y) = q^{y-1}p
+\]
+
+\section{Theorem 3.8}
+Expected value of geometric random variable $Y$:
+\[
+\mu = E(Y) = \frac{1}{p}
+\]
+Variance of $Y$:
+\[
+\sigma^2 = V(Y) = \frac{1-p}{p^2}
+\]
+Standard deviation of $Y$:
+\[
+\sigma = \sqrt{\frac{1-p}{p^2}}
+\]
+
+\section{Definition 3.9}
+Negative binomial probability distribution, given $y = r, r+1, r+2, \ldots$ and $0 \leq P(y) \leq 1$. $y$ represents the trial where the $r$th success occurs, with success probability $p$:
+\[
+P(Y = y) = \binom{y-1}{r-1} p^r q^{y-r}
+\]
+
+\section{Theorem 3.9}
+Expected value of negative binomial random variable $Y$:
+\[
+\mu = E(Y) = \frac{r}{p}
+\]
+Variance of $Y$:
+\[
+\sigma^2 = V(Y) = \frac{r(1-p)}{p^2}
+\]
+Standard deviation of $Y$:
+\[
+\sigma = \sqrt{\frac{r(1-p)}{p^2}}
+\]
+
+\section{Definition 3.10}
+Hypergeometric probability distribution, given $y = 0, 1, 2, \ldots, n, y \leq r, n-y \leq N-r$. $n$ items are selected from $N$, with $r$ objects of desired type:
+\[
+P(Y = y) = \frac{\binom{r}{y}\binom{N-r}{n-y}}{\binom{N}{n}}
+\]
+
+\section{Theorem 3.10}
+Expected value of hypergeometric random variable $Y$:
+\[
+\mu = E(Y) = \frac{nr}{N}
+\]
+Variance of $Y$:
+\[
+\sigma^2 = V(Y) = n \frac{r}{N}\frac{N-r}{N}\frac{N-n}{N-1}
+\]
+Standard deviation of $Y$:
+\[
+\sigma = \sqrt{n \frac{r}{N}\frac{N-r}{N}\frac{N-n}{N-1}}
+\]
+
+
+\end{document}
